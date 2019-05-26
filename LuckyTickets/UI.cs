@@ -21,7 +21,7 @@ namespace LuckyTickets
         private static void ShowInstructionWrongPath()
         {
             Console.WriteLine("Ошибка, по указанному пути файла не существует");
-            Console.WriteLine("Введите еще раз, пример - D:\\Папка\\filename.txt");
+            Console.WriteLine("Введите еще раз, пример - D:\\\\Папка\\\\Filename.txt ");
 
         }
         public static string GetPath()
