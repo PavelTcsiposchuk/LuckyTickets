@@ -57,7 +57,7 @@ namespace LuckyTickets
             if (evenNumbersSum == oddNumbersSum)
             {
                 result = true;
-                Console.WriteLine(number);
+                //Console.WriteLine(number);
             }
 
             return result;

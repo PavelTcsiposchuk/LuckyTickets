@@ -13,9 +13,10 @@ namespace LuckyTickets
 
         public static void ShowInstruction()
         {
+            Console.WriteLine("============Task 2============");
             Console.WriteLine("Вам нужно ввести путь к файлу, в котором первая строка тип билета(Moskow/Piter)," +
                 " вторая и третья - начало и конец диапазона билетов(только числа больше 1 и меньше 100000)");
-            Console.WriteLine("Пример : ");
+            Console.WriteLine("Пример : D:\\\\Filename.txt ");
         }
         private static void ShowInstructionWrongPath()
         {
@@ -47,7 +48,7 @@ namespace LuckyTickets
         }
         public static void ShowCountLuckyTickets(int countLuckyTickets)
         {
-            Console.WriteLine(string.Format("В заданном диапазоне находится {0} счастливых билетов", countLuckyTickets);
+            Console.WriteLine(string.Format("В заданном диапазоне находится {0} счастливых билетов", countLuckyTickets));
         }
 
         #endregion
