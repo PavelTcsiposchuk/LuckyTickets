@@ -6,10 +6,23 @@ using System.Threading.Tasks;
 
 namespace LuckyTickets
 {
-    public abstract class TicketAnalyzator
+    public class TicketAnalyzator
     {
+        #region Constructors
+
+        public TicketAnalyzator(int startNumberRange, int finishNumberRange, ITicketAlgorithm algorithm)
+        {
+            StartNumberRange = startNumberRange;
+            FinishNumberRange = finishNumberRange;
+            _ticketAlgorithm = algorithm;
+            
+        }
+
+        #endregion
+
         #region Properties
 
+        public ITicketAlgorithm GetAlgorithmLuckyTickets { get => _ticketAlgorithm; }
         public int StartNumberRange
         {
             get
@@ -51,45 +64,37 @@ namespace LuckyTickets
 
         #region Fields
 
-        protected int _startNumberRange;
-        protected int _finishNumberRange;
-        protected int _countLuckyTickets = 0;
-        protected int _numberDigitsTicket = 6;
+        private int _startNumberRange;
+        private int _finishNumberRange;
+        private int _countLuckyTickets = 0;
+        private int _countDigitsInTicket = 6;
+        private readonly ITicketAlgorithm _ticketAlgorithm;
 
         #endregion
 
         #region Methods
 
-        public abstract int CountLuckyTickets();
-        public abstract bool IsTicketLucky(int number);
-        protected int[] CreateArrayWithDigits(int number, int quantityDigitsInNumber)
+        public int CountLuckyTickets()
         {
-            int[] arrayDigits = new int[_numberDigitsTicket];
+            _countLuckyTickets = 0;
 
-            for (int index = 0; index < _numberDigitsTicket - quantityDigitsInNumber; index++)
+            for (int indexer = StartNumberRange; indexer <= FinishNumberRange; indexer++)
             {
-                arrayDigits[index] = 0;
-            }
-            string stringNumber = Convert.ToString(number);
-            for (int index = _numberDigitsTicket - quantityDigitsInNumber, digree = 0; index < _numberDigitsTicket; index++, digree++)
-            {
-                arrayDigits[index] = Convert.ToInt32(stringNumber[digree] - '0');
+                if (GetAlgorithmLuckyTickets.IsTicketLucky(new Ticket(indexer, _countDigitsInTicket)))
+                {
+                    _countLuckyTickets++;
+                    //foreach (var st in new Ticket(indexer, _countDigitsInTicket).DigitsTicket)
+                    //{
+                    //    Console.Write(st);
+
+                    //}
+                    //Console.WriteLine();
+                }
             }
 
-            return arrayDigits;
+            return _countLuckyTickets;
         }
-        protected int FindNumberDigit(int number)
-        {
-            int numberDigitInNumber = 0;
 
-            while (number >= 1)
-            {
-                number /= 10;
-                numberDigitInNumber++;
-            }
-
-            return numberDigitInNumber;
-        }
 
         #endregion
 

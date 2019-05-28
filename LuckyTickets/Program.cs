@@ -11,18 +11,25 @@ namespace LuckyTickets
     {
         static void Main(string[] args)
         {
+            bool isAllInvalid = true;
             UI.ShowInstruction();
-            string path = UI.GetPath();
-            List<string> arguments = ReadFile(path);
-            if(!Validator.IsArgumentsValid(arguments,out string message))
+            do
             {
-                UI.ShowError(message);
-            }
-            else
-            {
-                TicketAnalyzator analyzator = GetTicketAnalyzator(arguments);
-                UI.ShowCountLuckyTickets(analyzator.CountLuckyTickets());
-            }
+                string path = UI.GetPath();
+                List<string> arguments = ReadFile(path);
+                if (!Validator.IsArgumentsValid(arguments, out string message))
+                {
+                    UI.ShowError(message);
+                }
+                else
+                {
+                    TicketAnalyzator analyzator = GetTicketAnalyzator(arguments);
+                    UI.ShowCountLuckyTickets(analyzator.CountLuckyTickets());
+                    isAllInvalid = false;
+                }
+
+            } while (isAllInvalid);
+            
            
             Console.Read();
         }
@@ -32,11 +39,11 @@ namespace LuckyTickets
 
             if(arguments[0].ToUpper() == "MOSKOW")
             {
-                analyzator = new MoscowTicketAnalyzator(Convert.ToInt32(arguments[1]), Convert.ToInt32(arguments[2]));
+                analyzator = new TicketAnalyzator(Convert.ToInt32(arguments[1]), Convert.ToInt32(arguments[2]), new MoskowAlgorithm());
             }
             else
             {
-                analyzator = new PiterTicketAnalyzator(Convert.ToInt32(arguments[1]), Convert.ToInt32(arguments[2]));
+                analyzator = new TicketAnalyzator(Convert.ToInt32(arguments[1]), Convert.ToInt32(arguments[2]), new PiterAlgorithm());
             }
             UI.ShowInformationAboutAnalyzator(arguments[0], arguments[1], arguments[2]);
 

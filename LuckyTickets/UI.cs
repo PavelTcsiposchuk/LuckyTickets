@@ -27,7 +27,7 @@ namespace LuckyTickets
         public static string GetPath()
         {
             string path = Console.ReadLine();
-            bool isPathValid = File.Exists(path);
+            bool isPathValid = Validator.IsPathValid(path);
 
             while (!isPathValid)
             {

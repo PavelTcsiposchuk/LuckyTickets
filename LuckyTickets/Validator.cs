@@ -11,6 +11,10 @@ namespace LuckyTickets
     {
         #region Methods 
 
+        static public bool IsPathValid(string path)
+        {
+            return File.Exists(path);
+        }
         static public bool IsArgumentsValid(List<string> arguments, out string message)
         {
             message = "Файл содержит ошибки\n";
